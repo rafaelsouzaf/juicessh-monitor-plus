@@ -31,4 +31,5 @@
     <string name="display">显示</string>
     <string name="use_dark_theme">使用暗色主题</string>
     <string name="use_byte">使用字节作为网速基本单位</string>
+    <string name="plugin_permissions_request">此插件需要访问列出JuiceSSH连接，并连接到它们。</string>
 </resources>

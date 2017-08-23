@@ -412,7 +412,7 @@ public class MainActivity extends AppCompatActivity implements ActionBar.OnNavig
                                 .setContentText("Hello World!");
 
                 // Sets an ID for the notification
-                int mNotificationId = 001;
+                int mNotificationId = 1;
                 // Gets an instance of the NotificationManager service
                 NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                 // Builds the notification and issues it.
