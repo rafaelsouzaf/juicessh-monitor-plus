@@ -18,6 +18,10 @@
         android:orderInCategory="100"
         compat:showAsAction="never" />
 
+    <item
+        android:id="@+id/test_not"
+        android:orderInCategory="101"
+        android:title="Teste Note" />
     <item android:id="@+id/about"
         android:title="@string/about"
         android:orderInCategory="100"

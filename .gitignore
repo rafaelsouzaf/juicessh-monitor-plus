@@ -22,6 +22,9 @@ local.properties
 # .classpath
 .project
 
+#Idea project files
+.idea
+
 # Ormlite config
 res/raw/ormlite_config.txt
 
