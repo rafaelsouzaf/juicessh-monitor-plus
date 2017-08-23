@@ -1,0 +1,7 @@
+- JSON file with commands and rule to get the result
+- Android read all JSON files and show the result of the commands
+- 
+
+
+
+
