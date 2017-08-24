@@ -22,6 +22,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.evgenii.jsevaluator.JsEvaluator;
+import com.evgenii.jsevaluator.interfaces.JsCallback;
 import com.sonelli.juicessh.performancemonitor.R;
 import com.sonelli.juicessh.performancemonitor.adapters.ConnectionSpinnerAdapter;
 import com.sonelli.juicessh.performancemonitor.controllers.BaseController;
@@ -78,9 +80,48 @@ public class MainActivity extends AppCompatActivity implements ActionBar.OnNavig
     private volatile String sessionKey;
     private volatile boolean isConnected = false;
 
+    JsEvaluator jsEvaluator = new JsEvaluator(this);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        jsEvaluator.evaluate("2 * 17", new JsCallback() {
+            @Override
+            public void onResult(String result) {
+                System.out.println("====================RESULT: " + result);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                System.out.println("====================ERROR: " + errorMessage);
+            }
+        });
+
+        jsEvaluator.callFunction("function myFunction(str) { return str + ' yessss'; }",
+            new JsCallback() {
+
+                @Override
+                public void onResult(String result) {
+                    System.out.println("====================RESULT: " + result);
+                    // Process result here.
+                    // This method is called in the UI thread.
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+                    System.out.println("====================ERRPR: " + errorMessage);
+                    // Process JavaScript error here.
+                    // This method is called in the UI thread.
+                }
+            }, "myFunction", "text lero lero lero");
+
+
+
+
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
