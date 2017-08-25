@@ -21,6 +21,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.0.0'
     compile 'com.sonelli:juicessh-pluginlibrary:1.0.13@aar'
     compile 'com.github.evgenyneu:js-evaluator-for-android:v2.0.0'
+    compile 'com.eclipsesource.j2v8:j2v8_android:3.0.5@aar'
 }
 
 

@@ -1,0 +1,12 @@
+{
+  "title": "CPU Usage",
+  "description": "CPU statistics",
+  "requirements": "",
+  "icon": "",
+  "background-color": "",
+  "enable-notification": false,
+  "js-notification-parameter": "",
+  "command-shell": "pwd",
+  "ttl": 3,
+  "js-function-filter": "return result + ' filtrado FUNCIONA 1';"
+}

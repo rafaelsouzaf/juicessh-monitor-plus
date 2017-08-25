@@ -2,6 +2,7 @@ package com.sonelli.juicessh.performancemonitor.activities;
 
 import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
@@ -18,22 +19,20 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.eclipsesource.v8.V8;
+import com.eclipsesource.v8.V8Array;
 import com.evgenii.jsevaluator.JsEvaluator;
 import com.evgenii.jsevaluator.interfaces.JsCallback;
 import com.sonelli.juicessh.performancemonitor.R;
 import com.sonelli.juicessh.performancemonitor.adapters.ConnectionSpinnerAdapter;
 import com.sonelli.juicessh.performancemonitor.controllers.BaseController;
-import com.sonelli.juicessh.performancemonitor.controllers.CpuUsageController;
 import com.sonelli.juicessh.performancemonitor.controllers.DiskUsageController;
-import com.sonelli.juicessh.performancemonitor.controllers.FreeRamController;
-import com.sonelli.juicessh.performancemonitor.controllers.LoadAverageController;
-import com.sonelli.juicessh.performancemonitor.controllers.NetworkUsageController;
-import com.sonelli.juicessh.performancemonitor.helpers.PreferenceHelper;
+import com.sonelli.juicessh.performancemonitor.controllers.JsonDynamicallyController;
 import com.sonelli.juicessh.performancemonitor.loaders.ConnectionListLoader;
+import com.sonelli.juicessh.performancemonitor.util.Util;
 import com.sonelli.juicessh.performancemonitor.views.AutoResizeTextView;
 import com.sonelli.juicessh.pluginlibrary.PluginClient;
 import com.sonelli.juicessh.pluginlibrary.PluginContract;
@@ -41,8 +40,16 @@ import com.sonelli.juicessh.pluginlibrary.exceptions.ServiceNotConnectedExceptio
 import com.sonelli.juicessh.pluginlibrary.listeners.OnClientStartedListener;
 import com.sonelli.juicessh.pluginlibrary.listeners.OnSessionFinishedListener;
 import com.sonelli.juicessh.pluginlibrary.listeners.OnSessionStartedListener;
+import com.sonelli.juicessh.performancemonitor.controllers.actions.*;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
+
+import static junit.framework.Assert.assertEquals;
 
 public class MainActivity extends AppCompatActivity implements ActionBar.OnNavigationListener, OnSessionStartedListener, OnSessionFinishedListener {
 
@@ -86,49 +93,8 @@ public class MainActivity extends AppCompatActivity implements ActionBar.OnNavig
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        jsEvaluator.evaluate("2 * 17", new JsCallback() {
-            @Override
-            public void onResult(String result) {
-                System.out.println("====================RESULT: " + result);
-            }
-
-            @Override
-            public void onError(String errorMessage) {
-                System.out.println("====================ERROR: " + errorMessage);
-            }
-        });
-
-        jsEvaluator.callFunction("function myFunction(str) { return str + ' yessss'; }",
-            new JsCallback() {
-
-                @Override
-                public void onResult(String result) {
-                    System.out.println("====================RESULT: " + result);
-                    // Process result here.
-                    // This method is called in the UI thread.
-                }
-
-                @Override
-                public void onError(String errorMessage) {
-                    System.out.println("====================ERRPR: " + errorMessage);
-                    // Process JavaScript error here.
-                    // This method is called in the UI thread.
-                }
-            }, "myFunction", "text lero lero lero");
-
-
-
-
-
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        PreferenceHelper preferenceHelper = new PreferenceHelper(this);
-        if(preferenceHelper.getKeepScreenOnFlag()){
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        }
 
         // Create an adapter for populating the actionbar spinner with connections.
         // We're going to pass in TYPE_SSH to disable all spinner items not of this type.
@@ -278,11 +244,6 @@ public class MainActivity extends AppCompatActivity implements ActionBar.OnNavig
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
-        // assigning the keep screen on menu the value of its saved status
-        PreferenceHelper preferenceHelper = new PreferenceHelper(this);
-        menu.findItem(R.id.keep_screen_on).setChecked(preferenceHelper.getKeepScreenOnFlag());
-
         return true;
     }
 
@@ -316,40 +277,20 @@ public class MainActivity extends AppCompatActivity implements ActionBar.OnNavig
             client.addSessionFinishedListener(sessionId, sessionKey, this);
         } catch (ServiceNotConnectedException ignored){}
 
-        this.loadAverageController = new LoadAverageController(this)
-                .setSessionId(sessionId)
-                .setSessionKey(sessionKey)
-                .setPluginClient(client)
-                .setTextview(loadAverageTextView)
-                .start();
+        /**
+         * Read and start/execute all json files
+         */
+        List<ActionBean> jsonActions = Util.getJsonActions(this);
+        for (ActionBean action: jsonActions) {
 
-        this.freeRamController = new FreeRamController(this)
-                .setSessionId(sessionId)
-                .setSessionKey(sessionKey)
-                .setPluginClient(client)
-                .setTextview(freeRamTextView)
-                .start();
-
-        this.cpuUsageController = new CpuUsageController(this)
-                .setSessionId(sessionId)
-                .setSessionKey(sessionKey)
-                .setPluginClient(client)
-                .setTextview(cpuUsageTextView)
-                .start();
-
-        this.diskUsageController = new DiskUsageController(this)
+            new JsonDynamicallyController(this, action)
                 .setSessionId(sessionId)
                 .setSessionKey(sessionKey)
                 .setPluginClient(client)
                 .setTextview(diskUsageTextView)
                 .start();
 
-        this.networkUsageController = new NetworkUsageController(this)
-                .setSessionId(sessionId)
-                .setSessionKey(sessionKey)
-                .setPluginClient(client)
-                .setTextview(networkUsageTextView)
-                .start();
+        }
 
     }
 
@@ -418,17 +359,6 @@ public class MainActivity extends AppCompatActivity implements ActionBar.OnNavig
                 startActivity(Intent.createChooser(urlIntent, getString(R.string.open_address)));
                 return true;
 
-            case R.id.keep_screen_on:
-                item.setChecked(!item.isChecked());
-                PreferenceHelper preferenceHelper = new PreferenceHelper(this);
-                preferenceHelper.setKeepScreenOnFlag(item.isChecked());
-                if(item.isChecked()) {
-                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-                }else{
-                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-                }
-                return true;
-
             case R.id.rate_plugin:
                 String packageName = getResources().getString(R.string.app_package);
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName));
@@ -459,7 +389,6 @@ public class MainActivity extends AppCompatActivity implements ActionBar.OnNavig
                 // Builds the notification and issues it.
                 mNotifyMgr.notify(mNotificationId, mBuilder.build());
 
-                System.out.println("TEstando isso aqui");
                 return true;
 
         }
@@ -516,9 +445,5 @@ public class MainActivity extends AppCompatActivity implements ActionBar.OnNavig
         });
 
     }
-
-
-
-
 
 }

@@ -8,6 +8,7 @@ import com.sonelli.juicessh.pluginlibrary.PluginClient;
 
 import java.lang.ref.WeakReference;
 import java.util.concurrent.atomic.AtomicBoolean;
+import com.sonelli.juicessh.performancemonitor.controllers.actions.*;
 
 public abstract class BaseController {
 
@@ -21,7 +22,15 @@ public abstract class BaseController {
 
     private AtomicBoolean isRunning = new AtomicBoolean(false);
 
+    public BaseController() {
+
+    }
+
     public BaseController(Context context) {
+        this.context = new WeakReference<>(context);
+    }
+
+    public BaseController(Context context, ActionBean action) {
         this.context = new WeakReference<>(context);
     }
 
