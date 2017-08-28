@@ -19,7 +19,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.eclipsesource.v8.V8;
@@ -87,14 +91,41 @@ public class MainActivity extends AppCompatActivity implements ActionBar.OnNavig
     private volatile String sessionKey;
     private volatile boolean isConnected = false;
 
-    JsEvaluator jsEvaluator = new JsEvaluator(this);
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+//        RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.main_new);
+//        super.onCreate(savedInstanceState);
+//        setContentView(mainLayout);
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_new);
+
+
+        EditText et = new EditText(this);
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        et.setLayoutParams(p);
+        et.setText("Text");
+
+
+        LinearLayout viewById = (LinearLayout) findViewById(R.id.main_new);
+        AutoResizeTextView testBox2 = (AutoResizeTextView) findViewById(R.id.free_memory);
+        if (testBox2 == null) {
+            System.out.println("========================================= PORRA testBox2 ES NULL");
+            //return;
+        }
+
+        viewById.addView(et);
+
+
+
+
+
+
+
+
+        //LinearLayout box = (LinearLayout) findViewById(R.id.test_box);
+        //mainLayout.addView(box);
 
         // Create an adapter for populating the actionbar spinner with connections.
         // We're going to pass in TYPE_SSH to disable all spinner items not of this type.

@@ -37,21 +37,33 @@ public class JsonDynamicallyController extends BaseController {
 
             try {
 
+                final StringBuilder fullResponse = new StringBuilder();
+
                 getPluginClient().executeCommandOnSession(getSessionId(), getSessionKey(), action.getCommandShell(), new OnSessionExecuteListener() {
+
                     @Override
                     public void onCompleted(int exitCode) {
+                        System.out.println("-----exitCode-------" + exitCode);
                         switch(exitCode){
                             case 127:
                                 setText(getString(R.string.error));
                                 Log.d(action.getTitle(), "Tried to run a command but the command was not found on the server");
                                 break;
+                            case 0:
+                                System.out.println("========================" + fullResponse.toString());
+                                String eval = JavascriptEvaluator.evaluate(action.getJsFunctionFilter(), fullResponse.toString());
+                                setText(eval);
+                                break;
                         }
                     }
                     @Override
                     public void onOutputLine(String result) {
-                        String eval = JavascriptEvaluator.evaluate(action.getJsFunctionFilter(), result);
-                        setText(eval);
-                        System.out.println("========================" + eval);
+                        if (fullResponse.toString().isEmpty()) {
+                            fullResponse.append(result);
+                        } else {
+                            fullResponse.append(result);
+                            fullResponse.append(System.getProperty("line.separator"));
+                        }
                     }
                     @Override
                     public void onError(int error, String reason) {
@@ -73,7 +85,5 @@ public class JsonDynamicallyController extends BaseController {
         return this;
 
     }
-
-
 
 }
