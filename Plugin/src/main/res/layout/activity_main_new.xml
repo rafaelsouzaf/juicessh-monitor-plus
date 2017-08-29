@@ -6,16 +6,128 @@
     tools:context=".activities.MainActivity" >
 
     <LinearLayout
-        android:id="@+id/main_new"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:background="@android:color/white"
+        android:paddingBottom="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="234dp"
         android:orientation="vertical"
-        android:paddingBottom="58dp">
+        android:id="@+id/main_new">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50px"
+            android:layout_weight="0.01"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/ripple_cpu_usage"
+                android:clickable="true"
+                android:elevation="3dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5"
+                    android:gravity="bottom|center_horizontal"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/cpu" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="7dp"
+                        android:fontFamily="sans-serif"
+                        android:text="@string/cpu_usage"
+                        android:textColor="@android:color/white"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <com.sonelli.juicessh.performancemonitor.views.AutoResizeTextView
+                    android:id="@+id/cpu_usage"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.75"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center_horizontal|top"
+                    android:text="-"
+                    android:textColor="@android:color/white"
+                    android:textSize="36sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/ripple_free_memory"
+                android:clickable="true"
+                android:elevation="3dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5"
+                    android:gravity="bottom|center_horizontal"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ram" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="7dp"
+                        android:fontFamily="sans-serif"
+                        android:text="@string/free_memory"
+                        android:textColor="@android:color/white"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <com.sonelli.juicessh.performancemonitor.views.AutoResizeTextView
+                    android:id="@+id/free_memory"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.75"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center_horizontal|top"
+                    android:text="-"
+                    android:textColor="@android:color/white"
+                    android:textSize="36sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/add_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout"
+            android:layout_margin="4dp"
+            android:text="+ Add" />
 
     </LinearLayout>
-
 
     <Button
         android:backgroundTint="@color/dashboard_dark_orange"

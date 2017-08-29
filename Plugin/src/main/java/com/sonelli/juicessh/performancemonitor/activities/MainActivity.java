@@ -101,13 +101,6 @@ public class MainActivity extends AppCompatActivity implements ActionBar.OnNavig
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_new);
 
-
-        EditText et = new EditText(this);
-        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        et.setLayoutParams(p);
-        et.setText("Text");
-
-
         LinearLayout viewById = (LinearLayout) findViewById(R.id.main_new);
         AutoResizeTextView testBox2 = (AutoResizeTextView) findViewById(R.id.free_memory);
         if (testBox2 == null) {
@@ -115,13 +108,19 @@ public class MainActivity extends AppCompatActivity implements ActionBar.OnNavig
             //return;
         }
 
-        viewById.addView(et);
+//        viewById.addView(et);
 
 
-
-
-
-
+        /**
+         * Set click listener for the ADD button
+         */
+        View addBox = findViewById(R.id.add_box);
+        addBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("TESTING CLICK AQUI");
+            }
+        });
 
 
         //LinearLayout box = (LinearLayout) findViewById(R.id.test_box);
