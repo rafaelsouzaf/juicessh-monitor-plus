@@ -2,7 +2,6 @@ package com.sonelli.juicessh.performancemonitor.activities;
 
 import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
@@ -19,21 +18,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.eclipsesource.v8.V8;
-import com.eclipsesource.v8.V8Array;
-import com.evgenii.jsevaluator.JsEvaluator;
-import com.evgenii.jsevaluator.interfaces.JsCallback;
 import com.sonelli.juicessh.performancemonitor.R;
 import com.sonelli.juicessh.performancemonitor.adapters.ConnectionSpinnerAdapter;
 import com.sonelli.juicessh.performancemonitor.controllers.BaseController;
-import com.sonelli.juicessh.performancemonitor.controllers.DiskUsageController;
 import com.sonelli.juicessh.performancemonitor.controllers.JsonDynamicallyController;
 import com.sonelli.juicessh.performancemonitor.loaders.ConnectionListLoader;
 import com.sonelli.juicessh.performancemonitor.util.Util;
@@ -46,14 +38,9 @@ import com.sonelli.juicessh.pluginlibrary.listeners.OnSessionFinishedListener;
 import com.sonelli.juicessh.pluginlibrary.listeners.OnSessionStartedListener;
 import com.sonelli.juicessh.performancemonitor.controllers.actions.*;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-import static junit.framework.Assert.assertEquals;
 
 public class MainActivity extends AppCompatActivity implements ActionBar.OnNavigationListener, OnSessionStartedListener, OnSessionFinishedListener {
 
@@ -70,21 +57,9 @@ public class MainActivity extends AppCompatActivity implements ActionBar.OnNavig
     private Button connectButton;
     private Button disconnectButton;
 
+    private List<JsonDynamicallyController> jsonList = new ArrayList<>();
+
     private ConnectionSpinnerAdapter spinnerAdapter;
-
-    // Controllers
-    private BaseController loadAverageController;
-    private BaseController freeRamController;
-    private BaseController cpuUsageController;
-    private BaseController diskUsageController;
-    private BaseController networkUsageController;
-
-    // Text displays
-    private AutoResizeTextView loadAverageTextView;
-    private AutoResizeTextView freeRamTextView;
-    private AutoResizeTextView cpuUsageTextView;
-    private AutoResizeTextView networkUsageTextView;
-    private AutoResizeTextView diskUsageTextView;
 
     // State
     private volatile int sessionId;
@@ -94,27 +69,15 @@ public class MainActivity extends AppCompatActivity implements ActionBar.OnNavig
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-//        RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.main_new);
-//        super.onCreate(savedInstanceState);
-//        setContentView(mainLayout);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_new);
-
-        LinearLayout viewById = (LinearLayout) findViewById(R.id.main_new);
-        AutoResizeTextView testBox2 = (AutoResizeTextView) findViewById(R.id.free_memory);
-        if (testBox2 == null) {
-            System.out.println("========================================= PORRA testBox2 ES NULL");
-            //return;
-        }
-
-//        viewById.addView(et);
 
 
         /**
          * Set click listener for the ADD button
          */
         View addBox = findViewById(R.id.add_box);
+        addBox.setVisibility(View.VISIBLE);
         addBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -134,12 +97,6 @@ public class MainActivity extends AppCompatActivity implements ActionBar.OnNavig
         getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         getSupportActionBar().setListNavigationCallbacks(spinnerAdapter, this);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        this.loadAverageTextView = (AutoResizeTextView) findViewById(R.id.load_average);
-        this.freeRamTextView = (AutoResizeTextView) findViewById(R.id.free_memory);
-        this.cpuUsageTextView = (AutoResizeTextView) findViewById(R.id.cpu_usage);
-        this.networkUsageTextView = (AutoResizeTextView) findViewById(R.id.network_usage);
-        this.diskUsageTextView = (AutoResizeTextView) findViewById(R.id.disk_usage);
 
         this.connectButton = (Button) findViewById(R.id.connect_button);
         Drawable drawable = getDrawable(R.drawable.login);
@@ -214,9 +171,6 @@ public class MainActivity extends AppCompatActivity implements ActionBar.OnNavig
     @Override
     protected void onResume() {
         super.onResume();
-
-        if(loadAverageTextView != null)
-            loadAverageTextView.resizeText();
 
         try {
 
@@ -307,20 +261,48 @@ public class MainActivity extends AppCompatActivity implements ActionBar.OnNavig
             client.addSessionFinishedListener(sessionId, sessionKey, this);
         } catch (ServiceNotConnectedException ignored){}
 
+        LinearLayout viewById = (LinearLayout) findViewById(R.id.main_new);
+
         /**
          * Read and start/execute all json files
          */
         List<ActionBean> jsonActions = Util.getJsonActions(this);
         for (ActionBean action: jsonActions) {
 
-            new JsonDynamicallyController(this, action)
-                .setSessionId(sessionId)
-                .setSessionKey(sessionKey)
-                .setPluginClient(client)
-                .setTextview(diskUsageTextView)
-                .start();
+            View tempBox = getLayoutInflater().inflate(R.layout.generic_box_big, null);
+            viewById.addView(tempBox);
+
+//            tempBox.findViewById(R.id.color).setBackground();
+
+            /**
+             * Set title
+             */
+            TextView textView = (TextView) tempBox.findViewById(R.id.title);
+            char[] chars = action.getTitle().toCharArray();
+            textView.setText(chars, 0, chars.length);
+
+            /**
+             * Set value
+             */
+            AutoResizeTextView autoResizeTextView = (AutoResizeTextView) tempBox.findViewById(R.id.value);
+
+            JsonDynamicallyController controller = new JsonDynamicallyController(this, action);
+            controller.setSessionId(sessionId);
+            controller.setSessionKey(sessionKey);
+            controller.setPluginClient(client);
+            controller.setTextview(autoResizeTextView);
+            controller.start();
+
+            jsonList.add(controller);
 
         }
+
+        /**
+         * Start all commands
+         */
+//        for (JsonDynamicallyController controller: jsonList) {
+//            controller.start();
+//        }
 
     }
 
@@ -337,6 +319,7 @@ public class MainActivity extends AppCompatActivity implements ActionBar.OnNavig
         MainActivity.this.sessionKey = null;
         MainActivity.this.isConnected = false;
 
+        /*
         if(loadAverageController != null){
             loadAverageController.stop();
         }
@@ -362,6 +345,8 @@ public class MainActivity extends AppCompatActivity implements ActionBar.OnNavig
         cpuUsageTextView.setText("-");
         networkUsageTextView.setText("-");
         diskUsageTextView.setText("-");
+
+        */
 
         disconnectButton.setVisibility(View.GONE);
         disconnectButton.setEnabled(false);

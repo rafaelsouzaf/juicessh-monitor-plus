@@ -1,0 +1,12 @@
+{
+  "title": "Memory Usage",
+  "description": "Memory usage statistics",
+  "requirements": "",
+  "icon": "",
+  "background-color": "",
+  "enable-notification": false,
+  "js-notification-parameter": "",
+  "command-shell": "pwd",
+  "ttl": 3,
+  "js-function-filter": "return result + ' filtrado FUNCIONA 3';"
+}
