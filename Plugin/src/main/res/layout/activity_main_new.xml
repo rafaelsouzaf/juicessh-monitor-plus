@@ -19,13 +19,31 @@
             android:orientation="vertical"
             android:id="@+id/main_new">
 
-            <Button
-                android:id="@+id/add_box"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayout"
-                android:layout_margin="4dp"
-                android:text="+ Add" />
+            <LinearLayout
+                android:layout_alignParentTop="true"
+                android:background="@android:color/white"
+                android:paddingBottom="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/add_box"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linearLayout"
+                    android:layout_margin="4dp"
+                    android:text="+ Add" />
+
+                <Button
+                    android:id="@+id/sync"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linearLayout"
+                    android:layout_margin="4dp"
+                    android:text="Sync" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
