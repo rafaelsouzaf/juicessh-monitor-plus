@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -25,8 +26,8 @@ import android.widget.Toast;
 
 import com.sonelli.juicessh.performancemonitor.R;
 import com.sonelli.juicessh.performancemonitor.adapters.ConnectionSpinnerAdapter;
-import com.sonelli.juicessh.performancemonitor.controllers.BaseController;
 import com.sonelli.juicessh.performancemonitor.controllers.JsonDynamicallyController;
+import com.sonelli.juicessh.performancemonitor.controllers.actions.ActionBean;
 import com.sonelli.juicessh.performancemonitor.loaders.ConnectionListLoader;
 import com.sonelli.juicessh.performancemonitor.util.Util;
 import com.sonelli.juicessh.performancemonitor.views.AutoResizeTextView;
@@ -36,7 +37,6 @@ import com.sonelli.juicessh.pluginlibrary.exceptions.ServiceNotConnectedExceptio
 import com.sonelli.juicessh.pluginlibrary.listeners.OnClientStartedListener;
 import com.sonelli.juicessh.pluginlibrary.listeners.OnSessionFinishedListener;
 import com.sonelli.juicessh.pluginlibrary.listeners.OnSessionStartedListener;
-import com.sonelli.juicessh.performancemonitor.controllers.actions.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -272,7 +272,8 @@ public class MainActivity extends AppCompatActivity implements ActionBar.OnNavig
             View tempBox = getLayoutInflater().inflate(R.layout.generic_box_big, null);
             viewById.addView(tempBox);
 
-//            tempBox.findViewById(R.id.color).setBackground();
+            // set color
+            tempBox.findViewById(R.id.color).setBackgroundColor(Color.parseColor(action.getBackgroundColor()));
 
             /**
              * Set title

@@ -47,7 +47,7 @@
                         android:fontFamily="sans-serif"
                         android:textColor="@android:color/white"
                         android:layout_height="wrap_content"
-                        android:text="@string/load_average" />
+                        android:text="..." />
                 </LinearLayout>
 
                 <com.sonelli.juicessh.performancemonitor.views.AutoResizeTextView
