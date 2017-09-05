@@ -5,24 +5,31 @@
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity" >
 
-    <LinearLayout
-        android:layout_alignParentTop="true"
-        android:background="@android:color/white"
-        android:paddingBottom="0dp"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/main_new">
+        android:layout_height="fill_parent"
+        android:paddingBottom="70dp">
 
-        <Button
-            android:id="@+id/add_box"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/linearLayout"
-            android:layout_margin="4dp"
-            android:text="+ Add" />
+        <LinearLayout
+            android:layout_alignParentTop="true"
+            android:background="@android:color/white"
+            android:paddingBottom="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/main_new">
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/add_box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout"
+                android:layout_margin="4dp"
+                android:text="+ Add" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <Button
         android:backgroundTint="@color/dashboard_dark_orange"

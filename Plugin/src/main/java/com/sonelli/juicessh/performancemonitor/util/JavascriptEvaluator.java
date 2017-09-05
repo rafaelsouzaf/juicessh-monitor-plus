@@ -1,12 +1,7 @@
 package com.sonelli.juicessh.performancemonitor.util;
 
-import android.content.Context;
-import android.provider.Settings;
-
 import com.eclipsesource.v8.V8;
 import com.eclipsesource.v8.V8Array;
-import com.evgenii.jsevaluator.JsEvaluator;
-import com.evgenii.jsevaluator.interfaces.JsCallback;
 
 /**
  * Created by rafaelsouzaf on 8/24/2017.

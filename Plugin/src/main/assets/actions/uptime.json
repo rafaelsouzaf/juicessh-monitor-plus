@@ -1,0 +1,12 @@
+{
+  "title": "Uptime",
+  "description": "Uptime",
+  "requirements": "",
+  "icon": "",
+  "background-color": "",
+  "enable-notification": false,
+  "js-notification-parameter": "",
+  "command-shell": "uptime",
+  "ttl": 3,
+  "js-function-filter": "return result + ' filtrado FUNCIONA 4';"
+}

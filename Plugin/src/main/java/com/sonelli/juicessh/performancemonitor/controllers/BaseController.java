@@ -4,11 +4,11 @@ import android.content.Context;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sonelli.juicessh.performancemonitor.controllers.actions.ActionBean;
 import com.sonelli.juicessh.pluginlibrary.PluginClient;
 
 import java.lang.ref.WeakReference;
 import java.util.concurrent.atomic.AtomicBoolean;
-import com.sonelli.juicessh.performancemonitor.controllers.actions.*;
 
 public abstract class BaseController {
 

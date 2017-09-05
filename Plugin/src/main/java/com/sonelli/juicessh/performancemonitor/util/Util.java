@@ -2,15 +2,15 @@ package com.sonelli.juicessh.performancemonitor.util;
 
 import android.content.Context;
 
+import com.sonelli.juicessh.performancemonitor.controllers.actions.ActionBean;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.sonelli.juicessh.performancemonitor.controllers.actions.*;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * Created by rafaelsouzaf on 8/24/2017.

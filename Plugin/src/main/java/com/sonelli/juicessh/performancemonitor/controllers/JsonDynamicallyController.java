@@ -5,12 +5,10 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.sonelli.juicessh.performancemonitor.R;
+import com.sonelli.juicessh.performancemonitor.controllers.actions.ActionBean;
 import com.sonelli.juicessh.performancemonitor.util.JavascriptEvaluator;
 import com.sonelli.juicessh.pluginlibrary.exceptions.ServiceNotConnectedException;
 import com.sonelli.juicessh.pluginlibrary.listeners.OnSessionExecuteListener;
-import com.sonelli.juicessh.performancemonitor.controllers.actions.*;
-
-import java.io.IOException;
 
 /**
  * Created by rafaelsouzaf on 8/23/2017.
