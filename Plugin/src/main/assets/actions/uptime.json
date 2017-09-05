@@ -3,7 +3,7 @@
   "description": "Uptime",
   "requirements": "",
   "icon": "",
-  "background-color": "",
+  "background-color": "#fafafa",
   "enable-notification": false,
   "js-notification-parameter": "",
   "command-shell": "uptime",

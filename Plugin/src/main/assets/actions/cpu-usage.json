@@ -3,7 +3,7 @@
   "description": "CPU statistics",
   "requirements": "",
   "icon": "",
-  "background-color": "",
+  "background-color": "#000000",
   "enable-notification": false,
   "js-notification-parameter": "",
   "command-shell": "pwd",

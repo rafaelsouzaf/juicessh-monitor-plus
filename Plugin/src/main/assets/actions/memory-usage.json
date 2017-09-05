@@ -3,7 +3,7 @@
   "description": "Memory usage statistics",
   "requirements": "",
   "icon": "",
-  "background-color": "",
+  "background-color": "#cecece",
   "enable-notification": false,
   "js-notification-parameter": "",
   "command-shell": "pwd",
