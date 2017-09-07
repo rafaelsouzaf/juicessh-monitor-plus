@@ -7,6 +7,6 @@
   "enable-notification": false,
   "js-notification-parameter": "",
   "command-shell": "pwd",
-  "ttl": 3,
+  "ttl": 5,
   "js-function-filter": "return result + ' filtrado FUNCIONA 3';"
 }

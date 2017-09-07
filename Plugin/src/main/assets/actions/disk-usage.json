@@ -7,6 +7,6 @@
   "enable-notification": false,
   "js-notification-parameter": "",
   "command-shell": "df -h",
-  "ttl": 3,
+  "ttl": 4,
   "js-function-filter": "return result + ' filtrado FUNCIONA 2';"
 }
