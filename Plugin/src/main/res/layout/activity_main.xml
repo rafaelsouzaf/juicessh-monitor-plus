@@ -51,7 +51,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/cpu_usage" />
                     </LinearLayout>
-                <com.sonelli.juicessh.performancemonitor.views.AutoResizeTextView
+                <com.github.rafaelsouzaf.monitorplus.views.AutoResizeTextView
                     android:id="@+id/cpu_usage"
                     android:layout_height="0dp"
                     android:layout_weight="0.75"
@@ -98,7 +98,7 @@
                         android:textColor="@android:color/white"
                         android:text="@string/free_memory" />
                     </LinearLayout>
-                <com.sonelli.juicessh.performancemonitor.views.AutoResizeTextView
+                <com.github.rafaelsouzaf.monitorplus.views.AutoResizeTextView
                     android:layout_height="0dp"
                     android:layout_weight="0.75"
                     android:id="@+id/free_memory"
@@ -154,7 +154,7 @@
                         android:text="@string/load_average" />
                 </LinearLayout>
 
-                <com.sonelli.juicessh.performancemonitor.views.AutoResizeTextView
+                <com.github.rafaelsouzaf.monitorplus.views.AutoResizeTextView
                     android:layout_height="0dp"
                     android:layout_weight="0.75"
                     android:id="@+id/load_average"
@@ -210,7 +210,7 @@
                         android:text="@string/network" />
 
                     </LinearLayout>
-                <com.sonelli.juicessh.performancemonitor.views.AutoResizeTextView
+                <com.github.rafaelsouzaf.monitorplus.views.AutoResizeTextView
                     android:layout_height="0dp"
                     android:layout_weight="0.75"
                     android:id="@+id/network_usage"
@@ -256,7 +256,7 @@
                         android:text="@string/disk" />
 
                     </LinearLayout>
-                <com.sonelli.juicessh.performancemonitor.views.AutoResizeTextView
+                <com.github.rafaelsouzaf.monitorplus.views.AutoResizeTextView
                     android:layout_height="0dp"
                     android:layout_weight="0.75"
                     android:id="@+id/disk_usage"

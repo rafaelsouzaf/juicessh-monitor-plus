@@ -50,7 +50,7 @@
                     android:text="..." />
             </LinearLayout>
 
-            <com.sonelli.juicessh.performancemonitor.views.AutoResizeTextView
+            <com.github.rafaelsouzaf.monitorplus.views.AutoResizeTextView
                 android:layout_height="0dp"
                 android:layout_weight="0.75"
                 android:id="@+id/value"

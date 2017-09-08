@@ -40,7 +40,7 @@ android {
     buildToolsVersion '25.0.0'
 
     defaultConfig {
-        applicationId "com.sonelli.juicessh.performancemonitor"
+        applicationId "com.github.rafaelsouzaf.monitorplus"
         minSdkVersion 21
         targetSdkVersion 24
         versionCode 10

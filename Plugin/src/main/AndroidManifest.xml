@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sonelli.juicessh.performancemonitor">
+    package="com.github.rafaelsouzaf.monitorplus">
 
     <uses-permission android:name="com.sonelli.juicessh.api.v1.permission.READ_CONNECTIONS" />
     <uses-permission android:name="com.sonelli.juicessh.api.v1.permission.OPEN_SESSIONS" />
@@ -11,7 +11,7 @@
         android:theme="@style/Theme.AppCompat.Light"
         android:fullBackupContent="@xml/backup_descriptor">
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.github.rafaelsouzaf.monitorplus.activities.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/app_name">
             <intent-filter>
@@ -20,12 +20,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.AboutActivity"
+            android:name="com.github.rafaelsouzaf.monitorplus.activities.AboutActivity"
             android:label="@string/title_activity_about"
-            android:parentActivityName=".activities.MainActivity">
+            android:parentActivityName="com.github.rafaelsouzaf.monitorplus.activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
+                android:value="com.github.rafaelsouzaf.monitorplus.activities.MainActivity" />
         </activity>
     </application>
 
